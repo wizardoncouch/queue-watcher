@@ -1,0 +1,20 @@
+{
+    "name": "plus-telecom/queue-watcher",
+    "description": "Report the queue to grafana",
+    "authors": [
+        {
+            "name": "Alex Culango",
+            "email": "wizardoncouch@gmail.com"
+        }
+    ],
+    "repositories":[
+        {
+            "type": "vcs",
+            "url": "https://github.com/Plus-Telecom/wrap-statsd.git"
+        }
+    ],
+    "require": {
+		"plus-telecom/statsd": "dev-master",
+        "guzzlehttp/guzzle": "^6.3"
+    }
+}
