@@ -25,7 +25,7 @@ class QueueWatcher {
     }
 
     public function fire(){
-    	$rows = $this->file();
+    	$rows = $this->parse();
     	$this->evaluate($rows);
     }
 
