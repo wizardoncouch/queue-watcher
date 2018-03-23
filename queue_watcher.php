@@ -67,10 +67,10 @@ class QueueWatcher {
 
 	    			echo 'Row reported: ' . json_encode($row) . PHP_EOL;
 
-	    			$this->statsd->gauge($name.'.messages.total', $total);
-	    			$this->statsd->gauge($name.'.messages.ready', $ready);
-	    			$this->statsd->gauge($name.'.messages.ready.unacked', $unacked);
-	    			$this->statsd->gauge($name.'.consumers', $consumers);
+	    			$this->statsd->count($name.'.messages.total', $total);
+	    			$this->statsd->count($name.'.messages.ready', $ready);
+	    			$this->statsd->count($name.'.messages.ready.unacked', $unacked);
+	    			$this->statsd->count($name.'.consumers', $consumers);
 	    		}
 	    	}
     	}catch(\Exception $e){
