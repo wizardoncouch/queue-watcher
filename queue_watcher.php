@@ -30,7 +30,7 @@ class QueueWatcher {
     public function fire(){
 
         $start = microtime(true);
-    	$rows = $this->file();
+    	$rows = $this->parse();
     	$this->evaluate($rows);
         $diff = microtime(true) - $start;
         echo 'Total: '. $diff . PHP_EOL;
