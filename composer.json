@@ -7,14 +7,8 @@
             "email": "wizardoncouch@gmail.com"
         }
     ],
-    "repositories":[
-        {
-            "type": "vcs",
-            "url": "https://github.com/Plus-Telecom/wrap-statsd.git"
-        }
-    ],
     "require": {
-		"plus-telecom/statsd": "dev-master",
-        "guzzlehttp/guzzle": "^6.3"
+        "guzzlehttp/guzzle": "^6.3",
+        "domnikl/statsd": "^2.6"
     }
 }

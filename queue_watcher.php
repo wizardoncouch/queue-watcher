@@ -4,14 +4,13 @@
 require 'vendor/autoload.php';
 
 use GuzzleHttp\Client;
-use Plustelecom\Statsd\Statsd;
-
 
 class QueueWatcher {
 
 	protected $argv;
 	protected $user;
 	protected $password;
+	protected $statsd;
 
 	public function __construct($argv)
     {
@@ -22,11 +21,19 @@ class QueueWatcher {
         if (isset($this->argv[2])) {
             $this->password = $this->argv[2];
         }
+    	// $connection = new UdpSocket(env('STATSD_HOST', 'localhost'), env('STATSD_PORT', 8125));
+        // self::$client = new Client($connection, env('STATSD_NAMESPACE', ''));
+        $connection = new \Domnikl\Statsd\Connection\UdpSocket('localhost', 8125);
+        $this->statsd = new \Domnikl\Statsd\Client($connection, 'rabbit'); 
     }
 
     public function fire(){
-    	$rows = $this->parse();
+
+        $start = microtime(true);
+    	$rows = $this->file();
     	$this->evaluate($rows);
+        $diff = microtime(true) - $start;
+        echo 'Total: '. $diff . PHP_EOL;
     }
 
     protected function parse(){
@@ -60,10 +67,10 @@ class QueueWatcher {
 
 	    			echo 'Row reported: ' . json_encode($row) . PHP_EOL;
 
-	    			Statsd::gauge('rabbit.'.$name.'.messages.total', $total);
-	    			Statsd::gauge('rabbit.'.$name.'.messages.ready', $ready);
-	    			Statsd::gauge('rabbit.'.$name.'.messages.ready.unacked', $unacked);
-	    			Statsd::gauge('rabbit.'.$name.'.consumers', $consumers);
+	    			$this->statsd->gauge($name.'.messages.total', $total);
+	    			$this->statsd->gauge($name.'.messages.ready', $ready);
+	    			$this->statsd->gauge($name.'.messages.ready.unacked', $unacked);
+	    			$this->statsd->gauge($name.'.consumers', $consumers);
 	    		}
 	    	}
     	}catch(\Exception $e){
