@@ -9,6 +9,6 @@
     ],
     "require": {
         "guzzlehttp/guzzle": "^6.3",
-        "domnikl/statsd": "^2.6"
+        "domnikl/statsd": "^2.4"
     }
 }
